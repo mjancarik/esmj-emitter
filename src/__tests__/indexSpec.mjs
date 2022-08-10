@@ -1,19 +1,19 @@
-import { jest } from "@jest/globals";
+import { jest } from '@jest/globals';
 
-import { Event, Emitter } from "../index";
+import { Event, Emitter } from '../index';
 
 //TODO test for catchError
 
-describe("Emitter", () => {
+describe('Emitter', () => {
   let emitter = null;
-  const MyEvent = "myEvent";
+  const MyEvent = 'myEvent';
   const data = {};
 
   beforeEach(() => {
     emitter = new Emitter();
   });
 
-  it("should add and remove listener for defined event", () => {
+  it('should add and remove listener for defined event', () => {
     const off = emitter.on(MyEvent, () => {});
 
     expect(emitter.listeners(MyEvent)).toHaveLength(1);
@@ -21,7 +21,7 @@ describe("Emitter", () => {
     expect(emitter.listeners(MyEvent)).toHaveLength(0);
   });
 
-  it("should add and remove listener with off method for defined event", () => {
+  it('should add and remove listener with off method for defined event', () => {
     const listener = () => {};
 
     emitter.on(MyEvent, listener);
@@ -32,7 +32,7 @@ describe("Emitter", () => {
     expect(emitter.listeners(MyEvent)).toHaveLength(0);
   });
 
-  it("should emit event on defined listeners", async () => {
+  it('should emit event on defined listeners', async () => {
     const listener = jest.fn(({ $result }) => {
       return ($result ?? 0) + 1;
     });
@@ -96,7 +96,7 @@ describe("Emitter", () => {
     `);
   });
 
-  it("should emit event on defined listeners", async () => {
+  it('should emit event on defined listeners', async () => {
     const listener = jest.fn(({ $result }) => {
       return $result !== undefined
         ? Promise.resolve($result + 1)
@@ -161,7 +161,7 @@ describe("Emitter", () => {
     `);
   });
 
-  it("should allow stopPropagation event for sync mode to other listeners", async () => {
+  it('should allow stopPropagation event for sync mode to other listeners', async () => {
     const listener = jest.fn(({ stopPropagation }) => stopPropagation());
 
     emitter.on(MyEvent, listener);
@@ -172,7 +172,7 @@ describe("Emitter", () => {
     expect(listener.mock.calls.length).toEqual(1);
   });
 
-  it("should allow stopPropagation event for async to other listeners", async () => {
+  it('should allow stopPropagation event for async to other listeners', async () => {
     const listener = jest.fn(({ stopPropagation }) => {
       return new Promise((resolve) => {
         stopPropagation();
@@ -188,10 +188,10 @@ describe("Emitter", () => {
     expect(listener.mock.calls.length).toEqual(1);
   });
 
-  it("should throw Error for sync mode from listener", () => {
+  it('should throw Error for sync mode from listener', () => {
     const listener = jest.fn();
     const throwListener = () => {
-      throw new Error("Some");
+      throw new Error('Some');
     };
 
     emitter.on(MyEvent, listener);
@@ -202,14 +202,14 @@ describe("Emitter", () => {
       emitter.emit(MyEvent, data);
     } catch (error) {
       expect(listener.mock.calls.length).toEqual(1);
-      expect(error.message).toEqual("Some");
+      expect(error.message).toEqual('Some');
     }
   });
 
-  it("should throw Error for async mode from listener", async () => {
+  it('should throw Error for async mode from listener', async () => {
     const listener = jest.fn(() => Promise.resolve(1));
     const throwListener = () => {
-      throw new Error("Some");
+      throw new Error('Some');
     };
 
     emitter.on(MyEvent, listener);
@@ -220,11 +220,11 @@ describe("Emitter", () => {
       await emitter.emit(MyEvent, data);
     } catch (error) {
       expect(listener.mock.calls.length).toEqual(1);
-      expect(error.message).toEqual("Some");
+      expect(error.message).toEqual('Some');
     }
   });
 
-  it("should emit event on defined listeners only once", async () => {
+  it('should emit event on defined listeners only once', async () => {
     const listener = jest.fn();
 
     emitter.once(MyEvent, listener);
@@ -235,7 +235,7 @@ describe("Emitter", () => {
     expect(listener.mock.calls.length).toEqual(1);
   });
 
-  it("should emit event on prepend defined listeners only once", async () => {
+  it('should emit event on prepend defined listeners only once', async () => {
     const listener = jest.fn();
 
     emitter.prependOnceListener(MyEvent, listener);
@@ -246,8 +246,8 @@ describe("Emitter", () => {
     expect(listener.mock.calls.length).toEqual(1);
   });
 
-  it("should remove all defined listeners", () => {
-    const MyEvent2 = "MyEvent2";
+  it('should remove all defined listeners', () => {
+    const MyEvent2 = 'MyEvent2';
 
     emitter.on(MyEvent, jest.fn());
     emitter.on(MyEvent, jest.fn());
@@ -263,10 +263,10 @@ describe("Emitter", () => {
     expect(emitter.listeners(MyEvent2).length).toEqual(0);
   });
 
-  it("should add the listener function to the beginning of the listeners array", () => {
+  it('should add the listener function to the beginning of the listeners array', () => {
     const listener = jest.fn();
     const throwListener = () => {
-      throw new Error("Some");
+      throw new Error('Some');
     };
 
     emitter.on(MyEvent, listener);
@@ -277,14 +277,14 @@ describe("Emitter", () => {
       emitter.emit(MyEvent, data);
     } catch (error) {
       expect(listener.mock.calls.length).toEqual(0);
-      expect(error.message).toEqual("Some");
+      expect(error.message).toEqual('Some');
     }
   });
 
-  it("should add once the listener function to the beginning of the listeners array", () => {
+  it('should add once the listener function to the beginning of the listeners array', () => {
     const listener = jest.fn();
     const throwListener = () => {
-      throw new Error("Some");
+      throw new Error('Some');
     };
 
     emitter.on(MyEvent, listener);
@@ -295,7 +295,7 @@ describe("Emitter", () => {
       emitter.emit(MyEvent, data);
     } catch (error) {
       expect(listener.mock.calls.length).toEqual(0);
-      expect(error.message).toEqual("Some");
+      expect(error.message).toEqual('Some');
     }
 
     emitter.emit(MyEvent, data);
@@ -304,12 +304,12 @@ describe("Emitter", () => {
   });
 });
 
-describe("hooks", () => {
-  it("should has Emitter class", () => {
-    expect(typeof Emitter === "function").toBeTruthy();
+describe('hooks', () => {
+  it('should has Emitter class', () => {
+    expect(typeof Emitter === 'function').toBeTruthy();
   });
 
-  it("should has defined base events", () => {
+  it('should has defined base events', () => {
     expect(Event).toMatchInlineSnapshot(`
       Object {
         "Error": "@esmj/emitter.event.error",
