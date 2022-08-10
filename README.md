@@ -1,6 +1,6 @@
 # Emitter
 
-The `@esmj/emitter` is tiny async event emitter library.
+The `@esmj/emitter` is tiny (O,9kB) async event emitter library.
 
 It works in Node.js and the browser (using a bundler like webpack).
 
