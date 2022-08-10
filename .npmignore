@@ -1,0 +1,14 @@
+
+/src
+/coverage
+.babelrc
+.eslintrc.js
+.gitignore
+.npmignore
+.npmrc
+.prettierignore
+.DS_Store
+README.md
+CHANGELOG.md
+rollup.config.js
+jest.config.js
