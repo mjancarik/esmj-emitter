@@ -1,9 +1,17 @@
 {
   "name": "@esmj/emitter",
   "version": "0.0.1",
-  "description": "Lightweight emitter with zero dependencies for sync/async operation with result",
+  "description": "Lightweight emitter with zero dependencies for sync/async operation with from listeners result",
   "keywords": [
-    "emitter"
+    "emitter",
+    "eventEmitter",
+    "event",
+    "evetns",
+    "pubsub",
+    "tiny",
+    "emit",
+    "subscribe",
+    "async"
   ],
   "main": "dist/index",
   "module": "dist/index",

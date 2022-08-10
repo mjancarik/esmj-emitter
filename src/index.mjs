@@ -63,8 +63,9 @@ function catchError(emitter, method) {
 }
 
 class Emitter {
-  constructor({ logger } = {}) {
+  constructor({ logger, debug } = {}) {
     this._logger = logger ?? console;
+    this._debug = debug ?? false;
 
     this._events = new Map();
 
@@ -73,11 +74,17 @@ class Emitter {
     this.removeListener = this.off;
   }
 
-  emit(eventName, data) {
+  emit(eventName, data = {}) {
     const methods = this.listeners(eventName);
     const event = createEvent(eventName, data);
     let promise = null;
     let result = null;
+
+    if (this._debug) {
+      typeof this._debug === 'function'
+        ? this._debug(eventName, event)
+        : this._logger.debug(`Event name: ${eventName}, event: ${event}`);
+    }
 
     for (const method of methods) {
       if (promise) {
