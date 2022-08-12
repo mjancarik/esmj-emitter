@@ -8,6 +8,10 @@
 .npmrc
 .prettierignore
 .DS_Store
+.github/
+.husky/
+.history/
+utils/
 README.md
 CHANGELOG.md
 rollup.config.js

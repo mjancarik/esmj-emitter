@@ -1,12 +1,12 @@
 function createEvent(name, data) {
   const event = {
-    name,
     result: undefined,
     error: null,
     context: {},
+    ...data,
+    name,
     __stopped__: false,
     defaultPrevented: false,
-    ...data,
   };
 
   event.stopPropagation = () => {
