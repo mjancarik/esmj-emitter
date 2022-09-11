@@ -1,3 +1,12 @@
+## [0.0.5](https://github.com/mjancarik/esmj-emitter/compare/v0.0.4...v0.0.5) (2022-09-11)
+
+
+### Bug Fixes
+
+* 🐛 catch error method ([08ba3df](https://github.com/mjancarik/esmj-emitter/commit/08ba3df4f273d1b75d79a4411987c4e24a4658d0))
+
+
+
 ## [0.0.4](https://github.com/mjancarik/esmj-emitter/compare/v0.0.3...v0.0.4) (2022-08-12)
 
 
