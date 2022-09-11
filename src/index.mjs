@@ -28,7 +28,7 @@ function catchError(emitter, method) {
       if (result instanceof Promise) {
         result = result
           .catch((error) => {
-            return emitter.emitUnsafe(Event.Error, {
+            return emitter.emit(Event.Error, {
               ...argument,
               error,
             });
@@ -46,7 +46,7 @@ function catchError(emitter, method) {
       return result;
     } catch (error) {
       try {
-        return emitter.emitUnsafe(Event.Error, {
+        return emitter.emit(Event.Error, {
           ...argument,
           error,
         });
