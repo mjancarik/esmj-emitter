@@ -20,8 +20,6 @@ declare module '@esmj/emitter' {
 
   export function createEvent(name: string, data: { [key: string]: unknown }): EventData;
 
-  //export function catchError(emitter: Emitter, method: Listener): (argument: unknown) => unknown | Promise | EventData | ErrorData;
-
   export enum Event {
     Error = '@esmj/emitter.event.error'
   };

@@ -2,8 +2,6 @@ import { jest } from '@jest/globals';
 
 import { Event, Emitter } from '../index';
 
-//TODO test for catchError
-
 describe('Emitter', () => {
   let emitter = null;
   const MyEvent = 'myEvent';
