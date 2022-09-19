@@ -13,6 +13,7 @@
     "subscribe",
     "async"
   ],
+  "types": "./index.d.ts",
   "main": "dist/index",
   "module": "dist/index",
   "exports": {

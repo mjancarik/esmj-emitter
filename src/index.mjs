@@ -20,47 +20,47 @@ function createEvent(name, data) {
   return event;
 }
 
-function catchError(emitter, method) {
-  return (argument) => {
-    try {
-      let result = method(argument);
+// function catchError(emitter, method) {
+//   return (argument) => {
+//     try {
+//       let result = method(argument);
 
-      if (result instanceof Promise) {
-        result = result
-          .catch((error) => {
-            return emitter.emit(Event.Error, {
-              ...argument,
-              error,
-            });
-          })
-          .catch((criticalError) => {
-            emitter._logger.error(criticalError);
-            return {
-              ...argument,
-              error: criticalError,
-              criticalError: criticalError,
-            };
-          });
-      }
+//       if (result instanceof Promise) {
+//         result = result
+//           .catch((error) => {
+//             return emitter.emit(Event.Error, {
+//               ...argument,
+//               error,
+//             });
+//           })
+//           .catch((criticalError) => {
+//             emitter._logger.error(criticalError);
+//             return {
+//               ...argument,
+//               error: criticalError,
+//               criticalError: criticalError,
+//             };
+//           });
+//       }
 
-      return result;
-    } catch (error) {
-      try {
-        return emitter.emit(Event.Error, {
-          ...argument,
-          error,
-        });
-      } catch (criticalError) {
-        emitter._logger.error(criticalError);
-        return {
-          ...argument,
-          error: criticalError,
-          criticalError: criticalError,
-        };
-      }
-    }
-  };
-}
+//       return result;
+//     } catch (error) {
+//       try {
+//         return emitter.emit(Event.Error, {
+//           ...argument,
+//           error,
+//         });
+//       } catch (criticalError) {
+//         emitter._logger.error(criticalError);
+//         return {
+//           ...argument,
+//           error: criticalError,
+//           criticalError: criticalError,
+//         };
+//       }
+//     }
+//   };
+// }
 
 class Emitter {
   constructor({ logger, debug } = {}) {
@@ -194,4 +194,4 @@ const Event = {
   Error: '@esmj/emitter.event.error',
 };
 
-export { Event, createEvent, catchError, Emitter };
+export { Event, createEvent, Emitter };
