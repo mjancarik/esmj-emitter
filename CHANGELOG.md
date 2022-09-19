@@ -1,3 +1,17 @@
+## [0.0.6](https://github.com/mjancarik/esmj-emitter/compare/v0.0.5...v0.0.6) (2022-09-19)
+
+
+### Features
+
+* 🎸 add types for typescript ([a54a706](https://github.com/mjancarik/esmj-emitter/commit/a54a706e6910f996dcd06506de399cc211d348db))
+
+
+### BREAKING CHANGES
+
+* 🧨 Remove catchError method
+
+
+
 ## [0.0.5](https://github.com/mjancarik/esmj-emitter/compare/v0.0.4...v0.0.5) (2022-09-11)
 
 
