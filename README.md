@@ -24,12 +24,24 @@ import { Emitter } from '@esmj/emitter';
 const emitter = new Emitter();
 
 emitter.on('some-event', async (event) => {
-  return 2 * event.value;
+  return 2 * event.result;
 });
 
-const result = await emitter.emit('some-event', { value: 1 });
+emitter.on('some-event', (event) => {
+  return 3 * event.result;
+});
 
-console.log(result); // 2
+emitter.on('some-event', (event) => {
+  event.stopPropagation();
+});
+
+emitter.on('some-event', async (event) => {
+  return 4 * event.result;
+});
+
+const { result } = await emitter.emit('some-event', { result: 1 });
+
+console.log(result); // 6
 
 ```
 

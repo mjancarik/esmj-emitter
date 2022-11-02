@@ -30,11 +30,12 @@ describe('Emitter', () => {
     expect(emitter.listeners(MyEvent)).toHaveLength(0);
   });
 
-  it('should emit event on defined listeners', async () => {
-    const listener = jest.fn(({ $result }) => {
-      return ($result ?? 0) + 1;
+  it('should emit event on defined sync listeners', async () => {
+    const listener = jest.fn(({ result }) => {
+      return (result ?? 0) + 1;
     });
 
+    emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
 
@@ -48,7 +49,7 @@ describe('Emitter', () => {
         "error": null,
         "name": "myEvent",
         "preventDefault": [Function],
-        "result": 1,
+        "result": 3,
         "stopPropagation": [Function],
       }
     `);
@@ -63,7 +64,7 @@ describe('Emitter', () => {
               "error": null,
               "name": "myEvent",
               "preventDefault": [Function],
-              "result": 1,
+              "result": 3,
               "stopPropagation": [Function],
             },
           ],
@@ -75,7 +76,19 @@ describe('Emitter', () => {
               "error": null,
               "name": "myEvent",
               "preventDefault": [Function],
-              "result": 1,
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+          Array [
+            Object {
+              "__stopped__": false,
+              "context": Object {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
               "stopPropagation": [Function],
             },
           ],
@@ -87,19 +100,24 @@ describe('Emitter', () => {
           },
           Object {
             "type": "return",
-            "value": 1,
+            "value": 2,
+          },
+          Object {
+            "type": "return",
+            "value": 3,
           },
         ],
       }
     `);
   });
 
-  it('should emit event on defined listeners', async () => {
-    const listener = jest.fn(({ $result }) => {
-      return $result !== undefined
-        ? Promise.resolve($result + 1)
-        : Promise.resolve(0);
+  it('should emit event on defined async listeners', async () => {
+    const listener = jest.fn(({ result }) => {
+      return result !== undefined
+        ? Promise.resolve(result + 1)
+        : Promise.resolve(0 + 1);
     });
+    emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
 
@@ -113,7 +131,7 @@ describe('Emitter', () => {
         "error": null,
         "name": "myEvent",
         "preventDefault": [Function],
-        "result": 0,
+        "result": 3,
         "stopPropagation": [Function],
       }
     `);
@@ -128,7 +146,7 @@ describe('Emitter', () => {
               "error": null,
               "name": "myEvent",
               "preventDefault": [Function],
-              "result": 0,
+              "result": 3,
               "stopPropagation": [Function],
             },
           ],
@@ -140,12 +158,28 @@ describe('Emitter', () => {
               "error": null,
               "name": "myEvent",
               "preventDefault": [Function],
-              "result": 0,
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+          Array [
+            Object {
+              "__stopped__": false,
+              "context": Object {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
               "stopPropagation": [Function],
             },
           ],
         ],
         "results": Array [
+          Object {
+            "type": "return",
+            "value": Promise {},
+          },
           Object {
             "type": "return",
             "value": Promise {},
@@ -160,30 +194,66 @@ describe('Emitter', () => {
   });
 
   it('should allow stopPropagation event for sync mode to other listeners', async () => {
-    const listener = jest.fn(({ stopPropagation }) => stopPropagation());
+    const listener = jest.fn(({ stopPropagation, result }) => {
+      if (result === 1) {
+        stopPropagation();
+      }
+
+      return (result ?? 0) + 1;
+    });
 
     emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
 
-    await emitter.emit(MyEvent, data);
+    const event = emitter.emit(MyEvent, data);
 
-    expect(listener.mock.calls.length).toEqual(1);
+    expect(event).toMatchInlineSnapshot(`
+      Object {
+        "__stopped__": true,
+        "context": Object {},
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "result": 2,
+        "stopPropagation": [Function],
+      }
+    `);
+
+    expect(listener.mock.calls.length).toEqual(2);
   });
 
   it('should allow stopPropagation event for async to other listeners', async () => {
-    const listener = jest.fn(({ stopPropagation }) => {
+    const listener = jest.fn(({ stopPropagation, result }) => {
       return new Promise((resolve) => {
-        stopPropagation();
-        resolve();
+        if (result === 1) {
+          stopPropagation();
+        }
+        resolve((result ?? 0) + 1);
       });
     });
 
     emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
 
-    await emitter.emit(MyEvent, data);
+    const event = await emitter.emit(MyEvent, data);
 
-    expect(listener.mock.calls.length).toEqual(1);
+    expect(event).toMatchInlineSnapshot(`
+      Object {
+        "__stopped__": true,
+        "context": Object {},
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "result": 2,
+        "stopPropagation": [Function],
+      }
+    `);
+
+    expect(listener.mock.calls.length).toEqual(2);
   });
 
   it('should throw Error for sync mode from listener', () => {

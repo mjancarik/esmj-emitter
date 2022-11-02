@@ -58,7 +58,7 @@ class Emitter {
 
       if (!promise) {
         if (event.__stopped__) {
-          return;
+          return event;
         }
 
         result = method(event);
