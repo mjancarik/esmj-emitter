@@ -1,3 +1,12 @@
+## [0.0.7](https://github.com/mjancarik/esmj-emitter/compare/v0.0.6...v0.0.7) (2022-11-02)
+
+
+### Bug Fixes
+
+* 🐛 returning event with stopPropagation for sync mode ([776d58d](https://github.com/mjancarik/esmj-emitter/commit/776d58dfda2cfb653ccfb018828cfab70c5bd64d))
+
+
+
 ## [0.0.6](https://github.com/mjancarik/esmj-emitter/compare/v0.0.5...v0.0.6) (2022-09-19)
 
 
