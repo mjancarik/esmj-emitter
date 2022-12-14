@@ -42,9 +42,9 @@ describe('Emitter', () => {
     const event = emitter.emit(MyEvent, data);
 
     expect(event).toMatchInlineSnapshot(`
-      Object {
+      {
         "__stopped__": false,
-        "context": Object {},
+        "context": {},
         "defaultPrevented": false,
         "error": null,
         "name": "myEvent",
@@ -55,11 +55,11 @@ describe('Emitter', () => {
     `);
     expect(listener).toMatchInlineSnapshot(`
       [MockFunction] {
-        "calls": Array [
-          Array [
-            Object {
+        "calls": [
+          [
+            {
               "__stopped__": false,
-              "context": Object {},
+              "context": {},
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -68,10 +68,10 @@ describe('Emitter', () => {
               "stopPropagation": [Function],
             },
           ],
-          Array [
-            Object {
+          [
+            {
               "__stopped__": false,
-              "context": Object {},
+              "context": {},
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -80,10 +80,10 @@ describe('Emitter', () => {
               "stopPropagation": [Function],
             },
           ],
-          Array [
-            Object {
+          [
+            {
               "__stopped__": false,
-              "context": Object {},
+              "context": {},
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -93,16 +93,16 @@ describe('Emitter', () => {
             },
           ],
         ],
-        "results": Array [
-          Object {
+        "results": [
+          {
             "type": "return",
             "value": 1,
           },
-          Object {
+          {
             "type": "return",
             "value": 2,
           },
-          Object {
+          {
             "type": "return",
             "value": 3,
           },
@@ -124,9 +124,9 @@ describe('Emitter', () => {
     const event = await emitter.emit(MyEvent, data);
 
     expect(event).toMatchInlineSnapshot(`
-      Object {
+      {
         "__stopped__": false,
-        "context": Object {},
+        "context": {},
         "defaultPrevented": false,
         "error": null,
         "name": "myEvent",
@@ -137,11 +137,11 @@ describe('Emitter', () => {
     `);
     expect(listener).toMatchInlineSnapshot(`
       [MockFunction] {
-        "calls": Array [
-          Array [
-            Object {
+        "calls": [
+          [
+            {
               "__stopped__": false,
-              "context": Object {},
+              "context": {},
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -150,10 +150,10 @@ describe('Emitter', () => {
               "stopPropagation": [Function],
             },
           ],
-          Array [
-            Object {
+          [
+            {
               "__stopped__": false,
-              "context": Object {},
+              "context": {},
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -162,10 +162,10 @@ describe('Emitter', () => {
               "stopPropagation": [Function],
             },
           ],
-          Array [
-            Object {
+          [
+            {
               "__stopped__": false,
-              "context": Object {},
+              "context": {},
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -175,16 +175,16 @@ describe('Emitter', () => {
             },
           ],
         ],
-        "results": Array [
-          Object {
+        "results": [
+          {
             "type": "return",
             "value": Promise {},
           },
-          Object {
+          {
             "type": "return",
             "value": Promise {},
           },
-          Object {
+          {
             "type": "return",
             "value": Promise {},
           },
@@ -209,9 +209,9 @@ describe('Emitter', () => {
     const event = emitter.emit(MyEvent, data);
 
     expect(event).toMatchInlineSnapshot(`
-      Object {
+      {
         "__stopped__": true,
-        "context": Object {},
+        "context": {},
         "defaultPrevented": false,
         "error": null,
         "name": "myEvent",
@@ -241,9 +241,9 @@ describe('Emitter', () => {
     const event = await emitter.emit(MyEvent, data);
 
     expect(event).toMatchInlineSnapshot(`
-      Object {
+      {
         "__stopped__": true,
-        "context": Object {},
+        "context": {},
         "defaultPrevented": false,
         "error": null,
         "name": "myEvent",
@@ -379,7 +379,7 @@ describe('hooks', () => {
 
   it('should has defined base events', () => {
     expect(Event).toMatchInlineSnapshot(`
-      Object {
+      {
         "Error": "@esmj/emitter.event.error",
       }
     `);
