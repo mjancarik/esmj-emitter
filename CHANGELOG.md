@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/mjancarik/esmj-emitter/compare/v0.1.0...v0.2.0) (2022-12-23)
+
+
+### Features
+
+* 🎸 remove exported Event ([b4b992c](https://github.com/mjancarik/esmj-emitter/commit/b4b992ce6e17a842bef2bd552a09ffd1dd89db98))
+
+
+
 # [0.1.0](https://github.com/mjancarik/esmj-emitter/compare/v0.0.7...v0.1.0) (2022-12-14)
 
 

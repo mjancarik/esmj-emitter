@@ -1,6 +1,6 @@
 {
   "name": "@esmj/emitter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Lightweight emitter with zero dependencies for sync/async operation with from listeners result",
   "keywords": [
     "emitter",
