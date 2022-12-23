@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 
-import { Event, Emitter } from '../index';
+import { Emitter } from '../index';
 
 describe('Emitter', () => {
   let emitter = null;
@@ -375,13 +375,5 @@ describe('Emitter', () => {
 describe('hooks', () => {
   it('should has Emitter class', () => {
     expect(typeof Emitter === 'function').toBeTruthy();
-  });
-
-  it('should has defined base events', () => {
-    expect(Event).toMatchInlineSnapshot(`
-      {
-        "Error": "@esmj/emitter.event.error",
-      }
-    `);
   });
 });

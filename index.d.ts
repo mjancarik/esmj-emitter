@@ -12,18 +12,8 @@ declare module '@esmj/emitter' {
     stopPropagation(): void;
   };
 
-  type ErrorData = {
-    criticalError: Error,
-    error: Error,
-    [key: string]: unknown; // ...argument
-  }
-
   export function createEvent(name: string, data: { [key: string]: unknown }): EventData;
-
-  export enum Event {
-    Error = '@esmj/emitter.event.error'
-  };
-
+  
   export class Emitter {
     emit(eventName: string, data: unknown = {}): EventData;
     listeners(eventName: string): Listener[];

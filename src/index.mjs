@@ -148,8 +148,4 @@ class Emitter {
   }
 }
 
-const Event = {
-  Error: '@esmj/emitter.event.error',
-};
-
-export { Event, createEvent, Emitter };
+export { createEvent, Emitter };
