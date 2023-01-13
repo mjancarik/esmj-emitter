@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/mjancarik/esmj-emitter/compare/v0.2.0...v0.2.1) (2023-01-13)
+
+
+### Bug Fixes
+
+* 🐛 add types to exports field ([bd964e5](https://github.com/mjancarik/esmj-emitter/commit/bd964e52f5f252907745d28ef64875f62c8c487a))
+
+
+
 # [0.2.0](https://github.com/mjancarik/esmj-emitter/compare/v0.1.0...v0.2.0) (2022-12-23)
 
 
