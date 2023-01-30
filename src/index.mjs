@@ -1,9 +1,11 @@
 function createEvent(name, data) {
+  const isDataEvent = !!data.name;
+
   const event = {
-    result: undefined,
     error: null,
     context: {},
     ...data,
+    result: isDataEvent ? undefined : data.result,
     name,
     __stopped__: false,
     defaultPrevented: false,

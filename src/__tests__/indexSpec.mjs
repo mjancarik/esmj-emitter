@@ -111,6 +111,148 @@ describe('Emitter', () => {
     `);
   });
 
+  it('should emit event from event where event result is cleared between emits', async () => {
+    const listener = jest.fn(({ result }) => {
+      return (result ?? 0) + 1;
+    });
+
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+
+    const event1 = emitter.emit(MyEvent, data);
+    const event2 = emitter.emit(MyEvent, event1);
+
+    expect(event1).toMatchInlineSnapshot(`
+      {
+        "__stopped__": false,
+        "context": {},
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "result": 3,
+        "stopPropagation": [Function],
+      }
+    `);
+    expect(event2).toMatchInlineSnapshot(`
+      {
+        "__stopped__": false,
+        "context": {},
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "result": 3,
+        "stopPropagation": [Function],
+      }
+    `);
+    expect(listener).toMatchInlineSnapshot(`
+      [MockFunction] {
+        "calls": [
+          [
+            {
+              "__stopped__": false,
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+          [
+            {
+              "__stopped__": false,
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+          [
+            {
+              "__stopped__": false,
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+          [
+            {
+              "__stopped__": false,
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+          [
+            {
+              "__stopped__": false,
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+          [
+            {
+              "__stopped__": false,
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": 3,
+              "stopPropagation": [Function],
+            },
+          ],
+        ],
+        "results": [
+          {
+            "type": "return",
+            "value": 1,
+          },
+          {
+            "type": "return",
+            "value": 2,
+          },
+          {
+            "type": "return",
+            "value": 3,
+          },
+          {
+            "type": "return",
+            "value": 1,
+          },
+          {
+            "type": "return",
+            "value": 2,
+          },
+          {
+            "type": "return",
+            "value": 3,
+          },
+        ],
+      }
+    `);
+  });
+
   it('should emit event on defined async listeners', async () => {
     const listener = jest.fn(({ result }) => {
       return result !== undefined
