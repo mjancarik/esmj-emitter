@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/mjancarik/esmj-emitter/compare/v0.2.1...v0.3.0) (2023-01-30)
+
+
+### Features
+
+* 🎸 event result is cleared between emits ([46dbb7d](https://github.com/mjancarik/esmj-emitter/commit/46dbb7dad6422f8d6bfc1eb5d81d5f0bbf1947d6))
+
+
+
 ## [0.2.1](https://github.com/mjancarik/esmj-emitter/compare/v0.2.0...v0.2.1) (2023-01-13)
 
 
