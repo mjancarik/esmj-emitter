@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/mjancarik/esmj-emitter/compare/v0.3.0...v0.3.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* 🐛 add missing event argument for once listeners ([cafb9c3](https://github.com/mjancarik/esmj-emitter/commit/cafb9c3adca4b5b63922dc1fa4efe99a94fb35a2))
+
+
+
 # [0.3.0](https://github.com/mjancarik/esmj-emitter/compare/v0.2.1...v0.3.0) (2023-01-30)
 
 
