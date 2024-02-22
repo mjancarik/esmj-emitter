@@ -126,9 +126,9 @@ class Emitter {
   }
 
   _addListenerOnce(eventName, method, action) {
-    let removeMethod = this[action](eventName, () => {
+    let removeMethod = this[action](eventName, (event) => {
       removeMethod();
-      return method();
+      return method(event);
     });
   }
 

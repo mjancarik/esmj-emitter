@@ -443,6 +443,18 @@ describe('Emitter', () => {
     await emitter.emit(MyEvent, data);
 
     expect(listener.mock.calls.length).toEqual(1);
+    expect(listener.mock.calls[0][0]).toMatchInlineSnapshot(`
+      {
+        "__stopped__": false,
+        "context": {},
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "result": undefined,
+        "stopPropagation": [Function],
+      }
+    `);
   });
 
   it('should emit event on prepend defined listeners only once', async () => {
