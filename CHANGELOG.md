@@ -1,3 +1,12 @@
+## [0.4.1](https://github.com/mjancarik/esmj-emitter/compare/v0.4.0...v0.4.1) (2024-03-01)
+
+
+### Bug Fixes
+
+* 🐛 fix types ([35cfeee](https://github.com/mjancarik/esmj-emitter/commit/35cfeee7e5b681eb1b3cdcf7ee7ae606fe2b05c7))
+
+
+
 # [0.4.0](https://github.com/mjancarik/esmj-emitter/compare/v0.3.1...v0.4.0) (2024-03-01)
 
 
