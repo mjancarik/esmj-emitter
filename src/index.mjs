@@ -1,18 +1,23 @@
+const RESULT_KEY = Symbol('result-key');
+const STOPPED_EVENT = Symbol('stopped-event');
+
 function createEvent(name, data) {
   const isDataEvent = !!data.name;
+  const resultKey = data[RESULT_KEY] || 'result';
 
   const event = {
     error: null,
     context: {},
+    [RESULT_KEY]: 'result',
     ...data,
-    result: isDataEvent ? undefined : data.result,
+    [resultKey]: isDataEvent ? undefined : data[resultKey],
     name,
-    __stopped__: false,
+    [STOPPED_EVENT]: false,
     defaultPrevented: false,
   };
 
   event.stopPropagation = () => {
-    event.__stopped__ = true;
+    event[STOPPED_EVENT] = true;
   };
 
   event.preventDefault = () => {
@@ -49,9 +54,9 @@ class Emitter {
     for (const method of methods) {
       if (promise) {
         promise = promise.then((result) => {
-          event.result = result ?? event.result;
-          if (event.__stopped__) {
-            return event.result;
+          event[event[RESULT_KEY]] = result ?? event[event[RESULT_KEY]];
+          if (event[STOPPED_EVENT]) {
+            return event[event[RESULT_KEY]];
           }
 
           return method(event);
@@ -59,7 +64,7 @@ class Emitter {
       }
 
       if (!promise) {
-        if (event.__stopped__) {
+        if (event[STOPPED_EVENT]) {
           return event;
         }
 
@@ -69,13 +74,13 @@ class Emitter {
       if (result instanceof Promise && !promise) {
         promise = result;
       } else {
-        event.result = result ?? event.result;
+        event[event[RESULT_KEY]] = result ?? event[event[RESULT_KEY]];
       }
     }
 
     if (promise) {
       return promise.then((result) => {
-        event.result = result ?? event.result;
+        event[event[RESULT_KEY]] = result ?? event[event[RESULT_KEY]];
 
         return event;
       });
@@ -150,4 +155,4 @@ class Emitter {
   }
 }
 
-export { createEvent, Emitter };
+export { createEvent, Emitter, RESULT_KEY };

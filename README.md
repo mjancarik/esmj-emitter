@@ -45,6 +45,36 @@ console.log(result); // 6
 
 ```
 
+Or if you want to use custom name for result from your listeners. You can use `RESULT_KEY` symbol as example below. 
+
+```javascript
+import { Emitter, RESULT_KEY } from '@esmj/emitter';
+
+const emitter = new Emitter();
+
+emitter.on('some-event', async (event) => {
+  return 2 * event.count;
+});
+
+emitter.on('some-event', (event) => {
+  return 3 * event.count;
+});
+
+emitter.on('some-event', (event) => {
+  event.stopPropagation();
+});
+
+emitter.on('some-event', async (event) => {
+  return 4 * event.count;
+});
+
+const { count } = await emitter.emit('some-event', { count: 1, [RESULT_KEY]: 'count' });
+
+console.log(count); // 6
+
+```
+
+
 ## API
 ### emitter = new Emitter(options?)
 

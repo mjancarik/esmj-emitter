@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 
-import { Emitter } from '../index';
+import { Emitter, RESULT_KEY } from '../index';
 
 describe('Emitter', () => {
   let emitter = null;
@@ -43,7 +43,6 @@ describe('Emitter', () => {
 
     expect(event).toMatchInlineSnapshot(`
       {
-        "__stopped__": false,
         "context": {},
         "defaultPrevented": false,
         "error": null,
@@ -51,6 +50,8 @@ describe('Emitter', () => {
         "preventDefault": [Function],
         "result": 3,
         "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): false,
       }
     `);
     expect(listener).toMatchInlineSnapshot(`
@@ -58,7 +59,6 @@ describe('Emitter', () => {
         "calls": [
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -66,11 +66,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -78,11 +79,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -90,6 +92,8 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
         ],
@@ -125,7 +129,6 @@ describe('Emitter', () => {
 
     expect(event1).toMatchInlineSnapshot(`
       {
-        "__stopped__": false,
         "context": {},
         "defaultPrevented": false,
         "error": null,
@@ -133,11 +136,12 @@ describe('Emitter', () => {
         "preventDefault": [Function],
         "result": 3,
         "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): false,
       }
     `);
     expect(event2).toMatchInlineSnapshot(`
       {
-        "__stopped__": false,
         "context": {},
         "defaultPrevented": false,
         "error": null,
@@ -145,6 +149,8 @@ describe('Emitter', () => {
         "preventDefault": [Function],
         "result": 3,
         "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): false,
       }
     `);
     expect(listener).toMatchInlineSnapshot(`
@@ -152,7 +158,6 @@ describe('Emitter', () => {
         "calls": [
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -160,11 +165,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -172,11 +178,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -184,11 +191,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -196,11 +204,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -208,11 +217,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -220,6 +230,8 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
         ],
@@ -267,7 +279,6 @@ describe('Emitter', () => {
 
     expect(event).toMatchInlineSnapshot(`
       {
-        "__stopped__": false,
         "context": {},
         "defaultPrevented": false,
         "error": null,
@@ -275,6 +286,8 @@ describe('Emitter', () => {
         "preventDefault": [Function],
         "result": 3,
         "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): false,
       }
     `);
     expect(listener).toMatchInlineSnapshot(`
@@ -282,7 +295,6 @@ describe('Emitter', () => {
         "calls": [
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -290,11 +302,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -302,11 +315,12 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
           [
             {
-              "__stopped__": false,
               "context": {},
               "defaultPrevented": false,
               "error": null,
@@ -314,6 +328,8 @@ describe('Emitter', () => {
               "preventDefault": [Function],
               "result": 3,
               "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
             },
           ],
         ],
@@ -352,7 +368,6 @@ describe('Emitter', () => {
 
     expect(event).toMatchInlineSnapshot(`
       {
-        "__stopped__": true,
         "context": {},
         "defaultPrevented": false,
         "error": null,
@@ -360,6 +375,8 @@ describe('Emitter', () => {
         "preventDefault": [Function],
         "result": 2,
         "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): true,
       }
     `);
 
@@ -384,7 +401,6 @@ describe('Emitter', () => {
 
     expect(event).toMatchInlineSnapshot(`
       {
-        "__stopped__": true,
         "context": {},
         "defaultPrevented": false,
         "error": null,
@@ -392,6 +408,8 @@ describe('Emitter', () => {
         "preventDefault": [Function],
         "result": 2,
         "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): true,
       }
     `);
 
@@ -445,7 +463,6 @@ describe('Emitter', () => {
     expect(listener.mock.calls.length).toEqual(1);
     expect(listener.mock.calls[0][0]).toMatchInlineSnapshot(`
       {
-        "__stopped__": false,
         "context": {},
         "defaultPrevented": false,
         "error": null,
@@ -453,6 +470,8 @@ describe('Emitter', () => {
         "preventDefault": [Function],
         "result": undefined,
         "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): false,
       }
     `);
   });
@@ -523,6 +542,97 @@ describe('Emitter', () => {
     emitter.emit(MyEvent, data);
 
     expect(listener.mock.calls.length).toEqual(2);
+  });
+
+  it('should emit event on defined sync listeners with custom result key', async () => {
+    const listener = jest.fn(({ count }) => {
+      count++;
+
+      return count;
+    });
+
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+
+    const event = emitter.emit(MyEvent, {
+      ...data,
+      [RESULT_KEY]: 'count',
+      count: 0,
+    });
+
+    expect(event).toMatchInlineSnapshot(`
+      {
+        "context": {},
+        "count": 3,
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "stopPropagation": [Function],
+        Symbol(result-key): "count",
+        Symbol(stopped-event): false,
+      }
+    `);
+    expect(listener).toMatchInlineSnapshot(`
+      [MockFunction] {
+        "calls": [
+          [
+            {
+              "context": {},
+              "count": 3,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "count": 3,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "count": 3,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "count",
+              Symbol(stopped-event): false,
+            },
+          ],
+        ],
+        "results": [
+          {
+            "type": "return",
+            "value": 1,
+          },
+          {
+            "type": "return",
+            "value": 2,
+          },
+          {
+            "type": "return",
+            "value": 3,
+          },
+        ],
+      }
+    `);
   });
 });
 
