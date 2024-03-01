@@ -551,8 +551,13 @@ describe('Emitter', () => {
       return count;
     });
 
+    const empty = jest.fn(() => {
+      return undefined;
+    });
+
     emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, empty);
     emitter.on(MyEvent, listener);
 
     const event = emitter.emit(MyEvent, {
