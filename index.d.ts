@@ -23,3 +23,5 @@ export class Emitter {
   prependOnceListener(eventName: string, method: Listener): () => void;
   removeAllListeners(eventName: string): Listener[];
 }
+
+export const RESULT_KEY: unique symbol;
