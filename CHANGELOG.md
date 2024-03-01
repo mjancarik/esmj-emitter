@@ -1,3 +1,17 @@
+# [0.4.0](https://github.com/mjancarik/esmj-emitter/compare/v0.3.1...v0.4.0) (2024-03-01)
+
+
+### Features
+
+* 🎸 add support for define key name of result from listener ([ab64642](https://github.com/mjancarik/esmj-emitter/commit/ab64642e653784f203cfe4626e9edc20ffef5aec))
+
+
+### BREAKING CHANGES
+
+* 🧨 The event structure use internal Symbol.
+
+
+
 ## [0.3.1](https://github.com/mjancarik/esmj-emitter/compare/v0.3.0...v0.3.1) (2024-02-22)
 
 
