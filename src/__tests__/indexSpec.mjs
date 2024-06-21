@@ -551,13 +551,9 @@ describe('Emitter', () => {
       return count;
     });
 
-    const empty = jest.fn(() => {
-      return undefined;
-    });
-
     emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
-    emitter.on(MyEvent, empty);
+    emitter.on(MyEvent, listener);
     emitter.on(MyEvent, listener);
 
     const event = emitter.emit(MyEvent, {
@@ -569,7 +565,7 @@ describe('Emitter', () => {
     expect(event).toMatchInlineSnapshot(`
       {
         "context": {},
-        "count": 3,
+        "count": 4,
         "defaultPrevented": false,
         "error": null,
         "name": "myEvent",
@@ -585,7 +581,7 @@ describe('Emitter', () => {
           [
             {
               "context": {},
-              "count": 3,
+              "count": 4,
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -598,7 +594,7 @@ describe('Emitter', () => {
           [
             {
               "context": {},
-              "count": 3,
+              "count": 4,
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -611,7 +607,20 @@ describe('Emitter', () => {
           [
             {
               "context": {},
-              "count": 3,
+              "count": 4,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "count": 4,
               "defaultPrevented": false,
               "error": null,
               "name": "myEvent",
@@ -634,6 +643,311 @@ describe('Emitter', () => {
           {
             "type": "return",
             "value": 3,
+          },
+          {
+            "type": "return",
+            "value": 4,
+          },
+        ],
+      }
+    `);
+  });
+
+  it('should emit event on defined sync listeners with deep structure of custom result key', async () => {
+    const listener = jest.fn(
+      ({
+        deep: {
+          structure: { count },
+        },
+      }) => {
+        count++;
+
+        return count;
+      }
+    );
+
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+
+    const event = emitter.emit(MyEvent, {
+      ...data,
+      [RESULT_KEY]: 'deep.structure.count',
+      deep: {
+        structure: {
+          count: 0,
+        },
+      },
+    });
+
+    expect(event).toMatchInlineSnapshot(`
+      {
+        "context": {},
+        "deep": {
+          "structure": {
+            "count": 4,
+          },
+        },
+        "deep.structure.count": 0,
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "stopPropagation": [Function],
+        Symbol(result-key): "deep.structure.count",
+        Symbol(stopped-event): false,
+      }
+    `);
+    expect(listener).toMatchInlineSnapshot(`
+      [MockFunction] {
+        "calls": [
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 4,
+                },
+              },
+              "deep.structure.count": 0,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "deep.structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 4,
+                },
+              },
+              "deep.structure.count": 0,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "deep.structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 4,
+                },
+              },
+              "deep.structure.count": 0,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "deep.structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 4,
+                },
+              },
+              "deep.structure.count": 0,
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              Symbol(result-key): "deep.structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+        ],
+        "results": [
+          {
+            "type": "return",
+            "value": 1,
+          },
+          {
+            "type": "return",
+            "value": 2,
+          },
+          {
+            "type": "return",
+            "value": 3,
+          },
+          {
+            "type": "return",
+            "value": 4,
+          },
+        ],
+      }
+    `);
+  });
+
+  it('should emit event on defined sync listeners with missing deep structure of custom result key', async () => {
+    const listener = jest.fn(({ structure }) => {
+      if (!structure.count) {
+        structure.count = 0;
+      }
+
+      structure.count++;
+
+      return structure.count;
+    });
+
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+
+    const event = emitter.emit(MyEvent, {
+      ...data,
+      [RESULT_KEY]: 'structure.count',
+      deep: {
+        structure: {
+          count: 0,
+        },
+      },
+    });
+
+    expect(event).toMatchInlineSnapshot(`
+      {
+        "context": {},
+        "deep": {
+          "structure": {
+            "count": 0,
+          },
+        },
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "stopPropagation": [Function],
+        "structure": {
+          "count": 4,
+        },
+        "structure.count": undefined,
+        Symbol(result-key): "structure.count",
+        Symbol(stopped-event): false,
+      }
+    `);
+    expect(listener).toMatchInlineSnapshot(`
+      [MockFunction] {
+        "calls": [
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 0,
+                },
+              },
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              "structure": {
+                "count": 4,
+              },
+              "structure.count": undefined,
+              Symbol(result-key): "structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 0,
+                },
+              },
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              "structure": {
+                "count": 4,
+              },
+              "structure.count": undefined,
+              Symbol(result-key): "structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 0,
+                },
+              },
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              "structure": {
+                "count": 4,
+              },
+              "structure.count": undefined,
+              Symbol(result-key): "structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "deep": {
+                "structure": {
+                  "count": 0,
+                },
+              },
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "stopPropagation": [Function],
+              "structure": {
+                "count": 4,
+              },
+              "structure.count": undefined,
+              Symbol(result-key): "structure.count",
+              Symbol(stopped-event): false,
+            },
+          ],
+        ],
+        "results": [
+          {
+            "type": "return",
+            "value": 1,
+          },
+          {
+            "type": "return",
+            "value": 2,
+          },
+          {
+            "type": "return",
+            "value": 3,
+          },
+          {
+            "type": "return",
+            "value": 4,
           },
         ],
       }

@@ -4,17 +4,24 @@ const STOPPED_EVENT = Symbol('stopped-event');
 function createEvent(name, data) {
   const isDataEvent = !!data.name;
   const resultKey = data[RESULT_KEY] || 'result';
+  const isNamepace = resultKey.includes('.');
 
   const event = {
     error: null,
     context: {},
-    [RESULT_KEY]: 'result',
+    [RESULT_KEY]: resultKey,
     ...data,
-    [resultKey]: isDataEvent ? undefined : data[resultKey],
+    [resultKey]: isDataEvent ? undefined : getValue(data, resultKey),
     name,
     [STOPPED_EVENT]: false,
     defaultPrevented: false,
   };
+
+  if (isNamepace) {
+    createPath(event, resultKey);
+
+    event[resultKey] = isDataEvent ? undefined : getValue(data, resultKey);
+  }
 
   event.stopPropagation = () => {
     event[STOPPED_EVENT] = true;
@@ -25,6 +32,36 @@ function createEvent(name, data) {
   };
 
   return event;
+}
+
+function getValue(source, path) {
+  if (path === '') {
+    return source;
+  }
+
+  const keys = path.split('.');
+
+  return keys.reduce((result, key) => {
+    return result?.[key] ?? undefined;
+  }, source);
+}
+
+function setValue(source, path, value) {
+  const keys = path.split('.');
+  const key = keys.pop();
+
+  const result = getValue(source, keys.join('.'));
+
+  return (result[key] = value);
+}
+
+function createPath(source, path) {
+  const keys = path.split('.');
+  keys.pop();
+
+  keys.reduce((result, key) => {
+    return (result[key] = result[key] ?? {});
+  }, source);
 }
 
 class Emitter {
@@ -54,9 +91,13 @@ class Emitter {
     for (const method of methods) {
       if (promise) {
         promise = promise.then((result) => {
-          event[event[RESULT_KEY]] = result ?? event[event[RESULT_KEY]];
+          setValue(
+            event,
+            event[RESULT_KEY],
+            result ?? getValue(event, event[RESULT_KEY])
+          );
           if (event[STOPPED_EVENT]) {
-            return event[event[RESULT_KEY]];
+            return getValue(event, event[RESULT_KEY]);
           }
 
           return method(event);
@@ -74,13 +115,21 @@ class Emitter {
       if (result instanceof Promise && !promise) {
         promise = result;
       } else {
-        event[event[RESULT_KEY]] = result ?? event[event[RESULT_KEY]];
+        setValue(
+          event,
+          event[RESULT_KEY],
+          result ?? getValue(event, event[RESULT_KEY])
+        );
       }
     }
 
     if (promise) {
       return promise.then((result) => {
-        event[event[RESULT_KEY]] = result ?? event[event[RESULT_KEY]];
+        setValue(
+          event,
+          event[RESULT_KEY],
+          result ?? getValue(event, event[RESULT_KEY])
+        );
 
         return event;
       });
