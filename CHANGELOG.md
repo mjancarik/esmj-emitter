@@ -1,3 +1,12 @@
+## [0.4.2](https://github.com/mjancarik/esmj-emitter/compare/v0.4.1...v0.4.2) (2024-06-21)
+
+
+### Features
+
+* 🎸 result key in event can be path of object's structure ([ba1cf0b](https://github.com/mjancarik/esmj-emitter/commit/ba1cf0bb35a066959472f5cc7c796b2685f31089))
+
+
+
 ## [0.4.1](https://github.com/mjancarik/esmj-emitter/compare/v0.4.0...v0.4.1) (2024-03-01)
 
 
