@@ -138,6 +138,23 @@ class Emitter {
     return event;
   }
 
+  emitParallel(eventName, data = {}) {
+    const methods = this.listeners(eventName);
+    const event = createEvent(eventName, data);
+
+    return Promise.all(methods.map(async (method) => await method(event)))
+      .then((results) => {
+        event[event[RESULT_KEY]] = results;
+
+        return event;
+      })
+      .catch((error) => {
+        event.error = error;
+
+        throw error;
+      });
+  }
+
   listeners(eventName) {
     if (!this._events.has(eventName)) {
       return [];

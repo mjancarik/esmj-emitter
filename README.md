@@ -114,3 +114,33 @@ Subscribe event for listener only once. It will be unsubscribed after the first 
 #### emit(eventName, data?)
 
 Trigger an event asynchronously/synchronously. It is depends on returns value from listener. Listeners are called in the order they were added and executed serially.
+
+#### emitParallel(eventName, data?)
+Trigger an event asynchronously in parallel. The listeners for the event will be executed concurrently and  when the listeners are not dependent on each other.
+
+Returns a promise that resolves with an event, which has result an array of results from the event listeners. The promise is rejected if one of the listeners throws an error.
+
+```javascript
+
+import { Emitter } from '@esmj/emitter';
+
+const emitter = new Emitter();
+
+emitter.on('some-event', async (event) => {
+  return 2 * event.count;
+});
+
+emitter.on('some-event', (event) => {
+  return 3 * event.count;
+});
+
+emitter.on('some-event', () => {});
+
+emitter.on('some-event', async (event) => {
+  return 4 * event.count;
+});
+
+const { counts } = await emitter.emitParallel('some-event', { count: 1, RESULT_KEY: 'counts' });
+
+console.log(counts); // [2, 3, undefined, 4]
+```

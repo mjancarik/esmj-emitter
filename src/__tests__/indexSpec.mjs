@@ -115,6 +115,167 @@ describe('Emitter', () => {
     `);
   });
 
+  it('should emitParallel event on defined sync listeners', async () => {
+    const listener = jest.fn(({ result }) => {
+      return (result ?? 0) + 1;
+    });
+
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, listener);
+
+    const event = await emitter.emitParallel(MyEvent, data);
+
+    expect(event).toMatchInlineSnapshot(`
+      {
+        "context": {},
+        "defaultPrevented": false,
+        "error": null,
+        "name": "myEvent",
+        "preventDefault": [Function],
+        "result": [
+          1,
+          1,
+          1,
+        ],
+        "stopPropagation": [Function],
+        Symbol(result-key): "result",
+        Symbol(stopped-event): false,
+      }
+    `);
+    expect(listener).toMatchInlineSnapshot(`
+      [MockFunction] {
+        "calls": [
+          [
+            {
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": [
+                1,
+                1,
+                1,
+              ],
+              "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": [
+                1,
+                1,
+                1,
+              ],
+              "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
+            },
+          ],
+          [
+            {
+              "context": {},
+              "defaultPrevented": false,
+              "error": null,
+              "name": "myEvent",
+              "preventDefault": [Function],
+              "result": [
+                1,
+                1,
+                1,
+              ],
+              "stopPropagation": [Function],
+              Symbol(result-key): "result",
+              Symbol(stopped-event): false,
+            },
+          ],
+        ],
+        "results": [
+          {
+            "type": "return",
+            "value": 1,
+          },
+          {
+            "type": "return",
+            "value": 1,
+          },
+          {
+            "type": "return",
+            "value": 1,
+          },
+        ],
+      }
+    `);
+  });
+
+  it('should return rejected promise for emitParallel event for defined sync listeners which one of them throws Error', async () => {
+    const listener = jest.fn(({ result }) => {
+      return (result ?? 0) + 1;
+    });
+    const errorListener = () => {
+      throw new Error('Some');
+    };
+
+    emitter.on(MyEvent, listener);
+    emitter.on(MyEvent, errorListener);
+    emitter.on(MyEvent, listener);
+    try {
+      await emitter.emitParallel(MyEvent, data);
+    } catch (error) {
+      expect(error.message).toEqual('Some');
+      expect(listener).toMatchInlineSnapshot(`
+        [MockFunction] {
+          "calls": [
+            [
+              {
+                "context": {},
+                "defaultPrevented": false,
+                "error": [Error: Some],
+                "name": "myEvent",
+                "preventDefault": [Function],
+                "result": undefined,
+                "stopPropagation": [Function],
+                Symbol(result-key): "result",
+                Symbol(stopped-event): false,
+              },
+            ],
+            [
+              {
+                "context": {},
+                "defaultPrevented": false,
+                "error": [Error: Some],
+                "name": "myEvent",
+                "preventDefault": [Function],
+                "result": undefined,
+                "stopPropagation": [Function],
+                Symbol(result-key): "result",
+                Symbol(stopped-event): false,
+              },
+            ],
+          ],
+          "results": [
+            {
+              "type": "return",
+              "value": 1,
+            },
+            {
+              "type": "return",
+              "value": 1,
+            },
+          ],
+        }
+      `);
+    }
+  });
+
   it('should emit event from event where event result is cleared between emits', async () => {
     const listener = jest.fn(({ result }) => {
       return (result ?? 0) + 1;
