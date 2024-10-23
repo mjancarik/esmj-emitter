@@ -1,3 +1,12 @@
+## [0.4.3](https://github.com/mjancarik/esmj-emitter/compare/v0.4.2...v0.4.3) (2024-10-23)
+
+
+### Features
+
+* 🎸 add emitParallel method ([3f1348e](https://github.com/mjancarik/esmj-emitter/commit/3f1348eee86c846b289ca738cfa9b191bba29041))
+
+
+
 ## [0.4.2](https://github.com/mjancarik/esmj-emitter/compare/v0.4.1...v0.4.2) (2024-06-21)
 
 
